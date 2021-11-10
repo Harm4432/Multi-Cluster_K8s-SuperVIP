@@ -1,0 +1,22 @@
+apiVersion: "cis.f5.com/v1"
+kind: ExternalDNS
+metadata:
+  name: hello-world.example.com
+  namespace: hello-world
+  labels:
+    f5cr: "true"
+spec:
+  domainName: hello-world.example.com
+  dnsRecordType: A
+  loadBalanceMethod: round-robin
+  pools:
+  - name: hello-world.example.com
+    dnsRecordType: A
+    loadBalanceMethod: round-robin
+    dataServerName: /Common/GSLBServer1
+    monitor:
+      type: http
+      send: "GET / HTTP/1.1\r\nHost: hello-world.example.com\r\n"
+      recv: ""
+      interval: 10
+      timeout: 30

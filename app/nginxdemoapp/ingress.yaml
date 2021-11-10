@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginxdemoapp
+  namespace: nginxdemoapp
+  annotations:
+    nginx.org/server-snippets: "server_name ~^.*$;"
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - host: nginxdemoapp.example.com #because we have the annotation "nginx.org/server-snippets" with the value above, we can actually use any hostname
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginxdemoapp-svc
+            port: 
+              number: 80
