@@ -1,4 +1,4 @@
 
-    cd ../infra
+    cd infra
     terraform destroy -auto-approve
     cd ..
